@@ -1,0 +1,76 @@
+<div class="user-manage-list">
+    <mat-card *ngIf="dragDrop">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="add(true)">Salva</button>
+                    <button mat-raised-button mat-button-sm color="secondary" (click)="resetDrag()">Annulla</button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <ng-container cdkDropListGroup>
+            <div class="drag-container">
+                <h2>Attività</h2>
+            
+                <div cdkDropList #optionsList="cdkDropList" [cdkDropListData]="selects"
+                    class="drag-list" (cdkDropListDropped)="drop($event, true)">
+                    <div class="drag-box" *ngFor="let item of selects;" cdkDrag>
+                        {{item.nome}}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="drag-container" *ngFor="let d of dataCounter.data; let i = index">
+                <h2>Condizione</h2>
+            
+                <div cdkDropList [cdkDropListData]="d" class="drag-list" (cdkDropListDropped)="drop($event, false)">
+                    <mat-form-field class="drag-box" *ngFor="let item of d; let i = index" cdkDrag>
+                        <mat-select multiple [placeholder]="item.nome" [(ngModel)]="item.idvalue" [name]="item.id + i.toString()">
+                            <mat-option [matTooltip]="o.text" *ngFor="let o of item.options" [value]="o.id">{{o.text}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="drag-container">
+            <h2 style="color: #c5c5c5">Condizione</h2>
+        
+            <button mat-button (click)="dataCounter.data.push([])">Aggiungi</button>
+        </div>
+
+        <div class="drag-container gene-block">
+            <h2>Info</h2>
+            <div class="drag-list">
+                <mat-form-field class="drag-box">
+                    <input matInput required type="text" placeholder="Nome" [(ngModel)]="dataCounter.nome" name="nome">
+                </mat-form-field>
+                <mat-form-field class="drag-box">
+                    <input matInput required type="number" placeholder="Quantità" [(ngModel)]="dataCounter.qty" name="qty">
+                </mat-form-field>
+                <div class="pad-all-md">
+                    <mat-checkbox [(ngModel)]="dataCounter.frequenza" color="primary">Frequenza</mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <!-- <div class="mrgn-r-sm" (click)="getData()">
+                            <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                        </div> -->
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="add()">Aggiungi contatore</button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #exportTable [data]="data" [settings]="settings" (operations)="operations($event)" (update)="getData()"></og-list>
+    </mat-card>
+</div>

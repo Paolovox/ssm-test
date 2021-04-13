@@ -1,0 +1,81 @@
+<div class="user-manage-list">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="mrgn-r-sm" (click)="getData()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                </div>
+                <div class="mrgn-r-sm" *ngIf="isSpec()">
+                    <span> <b>{{'LIST_ATTIVITA.ATTIVITA_CONFERMATE' | translate}}:</b> {{oreValutate}}</span>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="end end">
+            <button fxFlex.xs="100" fxFlex="20" class="mrgn-b-md" *ngIf="isSpec()" mat-raised-button mat-button-sm color="primary" (click)="add()">{{'LIST_ATTIVITA.AGGIUNGI' | translate}}<mat-icon
+                    class="mrgn-l-md gene-text-xl">add</mat-icon></button>
+            <button fxFlex.xs="100" fxFlex="20" class="mrgn-b-md" *ngIf="isSpec()" mat-raised-button mat-button-sm color="secondary" (click)="sendAll()">{{'LIST_ATTIVITA.INVIA_VERIFICA' | translate}}<mat-icon class="mrgn-l-md gene-text-xl">send</mat-icon></button>
+            <button fxFlex.xs="100" fxFlex="20" class="mrgn-b-md" *ngIf="!isSpec() && !isSegr()" mat-raised-button mat-button-sm color="secondary" (click)="confirmAll()">{{'LIST_ATTIVITA.CONFERMA_TUTTE' | translate}}<mat-icon class="mrgn-l-md gene-text-xl">check</mat-icon></button>
+            <!-- <button fxFlex.xs="100" fxFlex="10" class="mrgn-b-md" style="background-color: red" mat-raised-button mat-button-sm (click)="print()">
+                <mat-icon class="gene-text-xl">print</mat-icon>
+            </button> -->
+        </div>
+        <div fxLayout="row wrap" fxLayoutGap="20px">
+            <mat-form-field *ngIf="isSpec()">
+                <mat-select [placeholder]="'LIST_ATTIVITA.STATO' | translate" (selectionChange)="getData()" [(ngModel)]="confermaStato" name="confermaStato">
+                    <mat-option value="">Tutti</mat-option>
+                    <mat-option *ngFor="let s of statusList" [value]="s.id">{{s.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="isTutor()">
+                <mat-select [placeholder]="'LIST_ATTIVITA.TUTOR_TRAINER' | translate" (selectionChange)="getData()" [(ngModel)]="trainerTutor"
+                    name="trainerTutor">
+                    <mat-option [value]="1">{{'LIST_ATTIVITA.TUTOR_OPERATIVO' | translate}}</mat-option>
+                    <mat-option [value]="2">{{'LIST_ATTIVITA.TUTOR' | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" (dateChange)="getData()" [placeholder]="'LIST_ATTIVITA.DATA' | translate" [(ngModel)]="dataAttivita">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field *ngIf="isSpec()">
+                <mat-select [placeholder]="'LIST_ATTIVITA.TUTOR' | translate" (selectionChange)="getData()" [(ngModel)]="idTutor" name="idTutor">
+                    <mat-option value="">{{'LIST_ATTIVITA.TUTTI' | translate}}</mat-option>
+                    <mat-option *ngFor="let t of tutorList" [value]="t.id">{{t.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="isDir()">
+                <mat-select [placeholder]="'LIST_ATTIVITA.COORTE' | translate" (selectionChange)="getData()" [(ngModel)]="idCoorte" name="idCoorte">
+                    <mat-option value="">{{'LIST_ATTIVITA.TUTTE' | translate}}</mat-option>
+                    <mat-option *ngFor="let c of coortiList" [value]="c.id">{{c.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="isDir()">
+                <mat-select [placeholder]="'LIST_ATTIVITA.ANNO' | translate" (selectionChange)="getData()" [(ngModel)]="idAnno" name="idAnno">
+                    <mat-option value="">{{'LIST_ATTIVITA.TUTTI' | translate}}</mat-option>
+                    <mat-option *ngFor="let a of anniList" [value]="a.id">{{a.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="width: 280px;">
+                <mat-select [placeholder]="'LIST_ATTIVITA.ATTIVITA' | translate" (selectionChange)="getData()" [(ngModel)]="idAttivita" name="idAttivita">
+                    <mat-option value="">{{'LIST_ATTIVITA.TUTTI' | translate}}</mat-option>
+                    <mat-option *ngFor="let a of attivitaList" [value]="a.id">{{a.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="width: 280px;">
+                <mat-select [placeholder]="'LIST_ATTIVITA.PRESTAZIONE' | translate" (selectionChange)="getData()" [(ngModel)]="idPrestazione" name="idPrestazione">
+                    <mat-option value="">{{'LIST_ATTIVITA.TUTTI' | translate}}</mat-option>
+                    <mat-option *ngFor="let p of prestazioniList" [value]="p.id">{{p.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div style="align-items: center; display: flex;">
+                <button mat-icon-button (click)="resetFilter()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #registrazioniTable [data]="data" [settings]="settings" (operations)="operations($event)"
+            (update)="getData()"></og-list>
+    </mat-card>
+</div>

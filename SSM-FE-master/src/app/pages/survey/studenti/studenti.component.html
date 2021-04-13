@@ -1,0 +1,7 @@
+<div class="user-manage-list">
+    <mat-card>
+        <og-list #specializzandiTable [data]="data" [settings]="settings" (operations)="operations($event)"
+            (update)="getData()"></og-list>
+    </mat-card>
+</div>
+<og-modal #OGModalAnswer [dialogFields]="dialogFieldsAnswer" [selectOptions]="selectOptionsAnswer"></og-modal>

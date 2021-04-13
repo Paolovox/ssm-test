@@ -1,0 +1,107 @@
+<div class="user-manage-list">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="mrgn-r-sm" (click)="getData()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                </div>
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="add()">Aggiungi sede<mat-icon
+                            class="mrgn-l-md gene-text-xl">home</mat-icon></button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="table-responsive">
+            <table class="full-wid" mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row.id) : null"
+                            [checked]="selection.isSelected(row.id)">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nome_sede_scuola">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sede scuola</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div fxLayoutAlign="start center">
+                            <div>
+                                <h5 class="mrgn-b-none">{{element.nome_sede_scuola}}</h5>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="nome_utente">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome utente</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="make-ellipse">{{element.nome_utente}} </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="posizione">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Posizione</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div fxLayoutAlign="start start">
+                            <div class="status-text">
+                                <div>{{element.posizione}}</div>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="codice">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Codice utente</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="make-ellipse">{{element.codice}} </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="piano">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Piano</th>
+                    <td mat-cell *matCellDef="let element">
+                    <div class="make-ellipse">{{element.piano}} </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="millesimi">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Millesimi</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="make-ellipse">{{element.millesimi}} </div>
+                    </td>
+                </ng-container> -->
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Operazioni</th>
+                    <td mat-cell *matCellDef="let element;let i = index;">
+                        <button matTooltip="Visualizza" (click)="view(element.id)" mat-icon-button>
+                            <mat-icon class="mat-icon-grey gene-text-lg">remove_red_eye</mat-icon>
+                        </button>
+                        <button matTooltip="Elimina" (click)="delete(element.id, element.nome_condominio)" mat-icon-button>
+                            <mat-icon class="mat-icon-grey gene-text-lg">delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+        <div class="pagination">
+            <mat-paginator #paginator [length]="total" (page)="paging($event)" [pageSize]="20"
+                [pageSizeOptions]="[10, 20, 25, 100]" showFirstLastButtons="{{true}}">
+            </mat-paginator>
+        </div>
+    </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields"></og-modal>

@@ -1,0 +1,48 @@
+<div class="user-manage-list">
+  <mat-card>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between">
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="mrgn-r-sm" (click)="getData()">
+                  <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+              </div>
+          </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="end end">
+          <button *ngIf="canAdd" fxFlex.xs="100" fxFlex="20" class="mrgn-b-md" mat-raised-button mat-button-sm color="primary" (click)="add()">{{'JOB_LIST.AGGIUNGI' | translate}}<mat-icon
+                  class="mrgn-l-md gene-text-xl">add</mat-icon></button>
+          <!-- <button fxFlex.xs="100" fxFlex="10" class="mrgn-b-md" style="background-color: red" mat-raised-button mat-button-sm (click)="print()">
+              <mat-icon class="gene-text-xl">print</mat-icon>
+          </button> -->
+      </div>
+      <!-- <div fxLayout="row wrap" fxLayoutGap="20px">
+          <mat-form-field>
+              <mat-select placeholder="Stato" (selectionChange)="getData()" [(ngModel)]="confermaStato" name="confermaStato">
+                  <mat-option value="">Tutti</mat-option>
+                  <mat-option *ngFor="let s of statusList" [value]="s.id">{{s.text}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-select placeholder="Tutor/Tutor operativo" (selectionChange)="getData()" [(ngModel)]="trainerTutor"
+                  name="trainerTutor">
+                  <mat-option [value]="1">Tutor operativo</mat-option>
+                  <mat-option [value]="2">Tutor</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput [matDatepicker]="picker" (dateChange)="getData()" placeholder="Data" [(ngModel)]="dataAttivita">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div style="align-items: center; display: flex;">
+              <button mat-icon-button (click)="resetFilter()">
+                  <mat-icon>cancel</mat-icon>
+              </button>
+          </div>
+      </div> -->
+      <mat-divider></mat-divider>
+      <og-list #jobDescriptionTable [data]="data" [settings]="settings" (operations)="operations($event)"
+          (update)="getData()"></og-list>
+  </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>
+<og-modal #OGModalJobTabelle [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

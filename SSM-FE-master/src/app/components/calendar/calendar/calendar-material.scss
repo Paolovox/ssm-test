@@ -1,0 +1,20 @@
+.cal-day-selected,
+.cal-day-selected:hover {
+    background-color: #1565c0 !important;
+    color: #fff;
+}
+.cal-day-cell {
+	min-height: unset !important;
+}
+.cal-cell-top   {
+    min-height: unset !important;
+}
+
+mwl-calendar-month-view {
+    line-height: 1 !important;
+}
+
+.disabled-date{
+    opacity: .5;
+    pointer-events: none;
+}

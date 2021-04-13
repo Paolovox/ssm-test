@@ -1,0 +1,53 @@
+<!-- <div class="gene-login gene-session pad-y-xl">
+   <div fxLayout="row" fxLayoutAlign="center start">
+      <div fxLayout="column" fxFlex.xl="540px" fxFlex.lg="540px" fxFlex.md="540px" fxFlex.sm="540px" fxFlex.xs="100">
+         <mat-card class="gene-login-wrapper">
+            <div>
+               <div fxLayout="column" fxLayoutAlign="center center mrgn-b-md">
+                  <div class="login-logo text-center">
+                     <img src="assets/img/logo.png">
+                     <h5>Effettua il login</h5>
+                     <button (click)="loginUnidata()" style="display: block;" class="primary-bg" mat-raised-button>LOGIN CON UNIDATA</button>
+                  </div>
+               </div>
+            </div>
+         </mat-card>
+      </div>
+   </div>
+</div> -->
+<div class="gene-login gene-session pad-y-xl">
+   <div fxLayout="row" fxLayoutAlign="center start">
+      <div fxLayout="column" fxFlex.xl="540px" fxFlex.lg="540px" fxFlex.md="540px" fxFlex.sm="540px" fxFlex.xs="100">
+         <mat-card class="gene-login-wrapper">
+            <div>
+               <div fxLayout="column" fxLayoutAlign="center center mrgn-b-md">
+                  <div class="login-logo text-center">
+                     <img src="assets/img/logo.png">
+                     <h5>Effettua il login</h5>
+                  </div>
+               </div>
+               <form #form="ngForm" (ngSubmit)="login(form.value)">
+                  <div fxLayout="column" fxLayoutAlign="start stretch">
+                     <mat-form-field class="full-wid mrgn-b-md">
+                        <input matInput placeholder="E-Mail" type="text" name="email" required [(ngModel)]="email">
+                     </mat-form-field>
+                     <mat-form-field class="full-wid mrgn-b-md ">
+                        <input matInput placeholder="Password" type="password" name="password" required
+                           [(ngModel)]="password">
+                     </mat-form-field>
+                     <div fxLayout="row" fxLayoutAlign="start center">
+                        <div fxLayout="column">
+                           <mat-checkbox class="remember-me">Ricordami</mat-checkbox>
+                        </div>
+                        <span fxFlex></span>
+                        <div><a [routerLink]="['/session/forgot-password']">Password dimenticata?</a></div>
+                     </div>
+                     <button class="grey-bg" style="color: #000" mat-raised-button [disabled]="!form.valid">Accedi</button>
+                  </div>
+               </form>
+            </div>
+         </mat-card>
+      </div>
+   </div>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

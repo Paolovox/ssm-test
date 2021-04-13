@@ -1,0 +1,30 @@
+<div class="user-manage-list">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutGap="20px">
+            <mat-form-field>
+                <mat-select [placeholder]="'LIST_VALUTAZIONI.ANNO' | translate" (selectionChange)="getData()" [(ngModel)]="anno"
+                    name="anno">
+                    <mat-option [value]="0">{{'LIST_VALUTAZIONI.TUTTI' | translate}}</mat-option>
+                    <mat-option *ngFor="let a of anniList" [value]="a.anno">{{a.anno}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" (dateChange)="getData()" [placeholder]="'LIST_VALUTAZIONI.DAL' | translate" [(ngModel)]="filtroDal" name="filtroDal">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" (dateChange)="getData()" [placeholder]="'LIST_VALUTAZIONI.AL' | translate" [(ngModel)]="filtroAl" name="filtroAl">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button mat-button type="button" color="default" (click)="removeFilter()">Rimuovi filtri</button>
+
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #valutazioniTable [data]="data" [settings]="settings" (operations)="operations($event)"
+            (update)="getData()"></og-list>
+    </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

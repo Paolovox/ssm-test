@@ -1,0 +1,41 @@
+<div fxLayout="row">
+    <mat-card fxFlex="100%">
+        <div class="text-center mrgn-t-md">
+            <h2>Seleziona la tipologia di elementi da copiare</h2>
+            <mat-form-field style="width: 50%" class="mrgn-l-sm">
+                <mat-select placeholder="Tipologia" [(ngModel)]="idTipo" name="idTipo">
+                    <mat-option *ngFor="let t of tipi" [value]="t.id">{{t.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <h2>Scuola da cui copiare gli elementi</h2>
+            <mat-form-field class="mrgn-t-lg mrgn-b-lg">
+                <mat-select placeholder="Ateneo" (selectionChange)="getScuole($event.value, 1)" [(ngModel)]="idAteneoDa" name="idAteneoDa">
+                    <mat-option *ngFor="let a of atenei" [value]="a.id">{{a.nome_ateneo}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="width: 50%" class="mrgn-l-sm" *ngIf="idAteneoDa">
+                <mat-select placeholder="Scuola" [(ngModel)]="idScuolaDa" name="idScuolaDa">
+                    <mat-option *ngFor="let s of scuoleDa" [value]="s.id">{{s.nome_scuola}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <h2>Scuola in cui copiare gli elementi</h2>
+            <mat-form-field class="mrgn-t-lg mrgn-b-lg">
+                <mat-select placeholder="Ateneo" (selectionChange)="getScuole($event.value, 2)" [(ngModel)]="idAteneoA" name="idAteneoA">
+                    <mat-option *ngFor="let a of atenei" [value]="a.id">{{a.nome_ateneo}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="width: 50%" class="mrgn-l-sm" *ngIf="idAteneoA">
+                <mat-select placeholder="Scuola" [(ngModel)]="idScuolaA" name="idScuolaA">
+                    <mat-option *ngFor="let s of scuoleA" [value]="s.id">{{s.nome_scuola}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <button style="background-color: #1565c0; color: #fff;" class="full-wid" mat-button (click)="clone()">Clona</button>
+        </div>
+    </mat-card>
+</div>

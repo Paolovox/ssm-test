@@ -1,0 +1,83 @@
+<div class="user-profile-v2">
+    <mat-card class="mat-pad-none">
+        <div class="pad-all-md" fxLayout="row wrap">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+                <div fxLayout="row wrap" class="profile-content">
+                    <!-- <div fxFlex.xl="200px" fxFlex.lg="200px" fxFlex.md="200px" fxFlex.sm="150px" fxFlex.xs="100">
+                        <div class="profile-image mrgn-r-lg mrgn-b-md">
+                            <img alt="profile image" src="{{user.userImage}}" width="200" height="200">
+                        </div>
+                    </div> -->
+                    <div>
+                        <div class="mrgn-b-md">
+                            <ng-container *ngIf="!readonly; else elseTemplate">
+                                <form #form="ngForm">
+                                    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx">
+                                        <mat-form-field fxFlex="50%">
+                                            <input matInput required placeholder="Nome" type="text" [(ngModel)]="data.nome" name="nome">
+                                        </mat-form-field>
+                                        <mat-form-field fxFlex="50%">
+                                            <input matInput required placeholder="Cognome" type="text" [(ngModel)]="data.cognome" name="cognome">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx">
+                                        <mat-form-field fxFlex="100%">
+                                            <input matInput required placeholder="Email" type="text" [(ngModel)]="data.email" name="email">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx">
+                                        <mat-form-field fxFlex="50%">
+                                            <input matInput required placeholder="Anno corso" type="text" [(ngModel)]="data.anno_scuola" name="anno_scuola">
+                                        </mat-form-field>
+                                        <mat-form-field fxFlex="50%">
+                                            <input matInput required placeholder="Coorte" type="text" [(ngModel)]="data.cognome" name="cognome">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                        <button mat-raised-button color="primary" [disabled]="!form.valid">Salva</button>
+                                        <mat-icon [@slideLeftRight]="saved" color="secondary" class="mat-18">check_circle_outline</mat-icon>
+                                        <!-- <button mat-button>Message<mat-icon class="mrgn-l-sm primary-text">mail_outline</mat-icon></button> -->
+                                    </div>
+                                </form>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <h2 class="mrgn-b-md">{{data.nome}} {{data.cognome}}</h2>
+                                <p class="mrgn-b-xs">{{data.email}}</p>
+                                <ng-container *ngIf="data.coorte_text">
+                                    <p class="mrgn-b-xs">Coorte: {{data.coorte_text}}</p>
+                                    <p class="mrgn-b-xs">Anno: {{data.anno_scuola}}°</p>
+                                </ng-container>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <div fxLayout="row wrap">
+        <!-- <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="65" fxFlex.lg="65" fxFlex.xl="65"> -->
+        <div fxFlex="100">
+            <mat-card>
+                <mat-card-actions class="mat-pad-none text-right">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="addRuolo()">Aggiungi ruolo<mat-icon
+                        class="mrgn-l-md gene-text-xl">person</mat-icon></button>
+                </mat-card-actions>
+                <mat-divider></mat-divider>
+                <og-list #rolesTable [data]="roles" [settings]="settings" (operations)="operations($event)" (update)="getUser()"></og-list>
+            </mat-card>
+            <div>
+            <!-- <div class="publication-wrap">
+                <app-thumb-list [publicationArray]="publicationArray"></app-thumb-list>
+            </div> -->
+        </div>
+        <!-- <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="35" fxFlex.xl="35">
+            <div>
+                <app-chip-list [researchInterest]="researchInterest"></app-chip-list>
+            </div>
+            <div>
+                <app-thumb-list-small [followers]="followers"></app-thumb-list-small>
+            </div>
+        </div> -->
+    </div>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

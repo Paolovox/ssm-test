@@ -1,0 +1,538 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <style type="text/css" rel="stylesheet" media="all">
+        /* Base ------------------------------ */
+
+        @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
+
+        body {
+            width: 100% !important;
+            height: 100%;
+            margin: 0;
+            -webkit-text-size-adjust: none;
+        }
+
+        a {
+            color: #3869D4;
+        }
+
+        a img {
+            border: none;
+        }
+
+        td {
+            word-break: break-word;
+        }
+
+        .preheader {
+            display: none !important;
+            visibility: hidden;
+            mso-hide: all;
+            font-size: 1px;
+            line-height: 1px;
+            max-height: 0;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        /* Type ------------------------------ */
+
+        body,
+        td,
+        th {
+            font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333333;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333333;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        td,
+        th {
+            font-size: 16px;
+        }
+
+        p,
+        ul,
+        ol,
+        blockquote {
+            margin: .4em 0 1.1875em;
+            font-size: 16px;
+            line-height: 1.625;
+        }
+
+        p.sub {
+            font-size: 13px;
+        }
+
+        /* Utilities ------------------------------ */
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        /* Buttons ------------------------------ */
+
+        .button {
+            background-color: #3869D4;
+            border-top: 10px solid #3869D4;
+            border-right: 18px solid #3869D4;
+            border-bottom: 10px solid #3869D4;
+            border-left: 18px solid #3869D4;
+            display: inline-block;
+            color: #FFF;
+            text-decoration: none;
+            border-radius: 3px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+            -webkit-text-size-adjust: none;
+            box-sizing: border-box;
+        }
+
+        .button--blue {
+            background-color: #76d6e2;
+            border-top: 10px solid #76d6e2;
+            border-right: 18px solid #76d6e2;
+            border-bottom: 10px solid #76d6e2;
+            border-left: 18px solid #76d6e2;
+        }
+
+        .button--red {
+            background-color: #FF6136;
+            border-top: 10px solid #FF6136;
+            border-right: 18px solid #FF6136;
+            border-bottom: 10px solid #FF6136;
+            border-left: 18px solid #FF6136;
+        }
+
+        @media only screen and (max-width: 500px) {
+            .button {
+                width: 100% !important;
+                text-align: center !important;
+            }
+        }
+
+        /* Attribute list ------------------------------ */
+
+        .attributes {
+            margin: 0 0 21px;
+        }
+
+        .attributes_content {
+            background-color: #F4F4F7;
+            padding: 16px;
+        }
+
+        .attributes_item {
+            padding: 0;
+        }
+
+        /* Related Items ------------------------------ */
+
+        .related {
+            width: 100%;
+            margin: 0;
+            padding: 25px 0 0 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .related_item {
+            padding: 10px 0;
+            color: #CBCCCF;
+            font-size: 15px;
+            line-height: 18px;
+        }
+
+        .related_item-title {
+            display: block;
+            margin: .5em 0 0;
+        }
+
+        .related_item-thumb {
+            display: block;
+            padding-bottom: 10px;
+        }
+
+        .related_heading {
+            border-top: 1px solid #CBCCCF;
+            text-align: center;
+            padding: 25px 0 10px;
+        }
+
+        /* Discount Code ------------------------------ */
+
+        .discount {
+            width: 100%;
+            margin: 0;
+            padding: 24px;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            background-color: #F4F4F7;
+            border: 2px dashed #CBCCCF;
+        }
+
+        .discount_heading {
+            text-align: center;
+        }
+
+        .discount_body {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        /* Social Icons ------------------------------ */
+
+        .social {
+            width: auto;
+        }
+
+        .social td {
+            padding: 0;
+            width: auto;
+        }
+
+        .social_icon {
+            height: 20px;
+            margin: 0 8px 10px 8px;
+            padding: 0;
+        }
+
+        /* Data table ------------------------------ */
+
+        .purchase {
+            width: 100%;
+            margin: 0;
+            padding: 35px 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .purchase_content {
+            width: 100%;
+            margin: 0;
+            padding: 25px 0 0 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .purchase_item {
+            padding: 10px 0;
+            color: #51545E;
+            font-size: 15px;
+            line-height: 18px;
+        }
+
+        .purchase_heading {
+            padding-bottom: 8px;
+            border-bottom: 1px solid #EAEAEC;
+        }
+
+        .purchase_heading p {
+            margin: 0;
+            color: #85878E;
+            font-size: 12px;
+        }
+
+        .purchase_footer {
+            padding-top: 15px;
+            border-top: 1px solid #EAEAEC;
+        }
+
+        .purchase_total {
+            margin: 0;
+            text-align: right;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        .purchase_total--label {
+            padding: 0 15px 0 0;
+        }
+
+        body {
+            background-color: #F2F4F6;
+            color: #51545E;
+        }
+
+        p {
+            color: #51545E;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            background-color: #F2F4F6;
+        }
+
+        .email-content {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        /* Masthead ----------------------- */
+
+        .email-masthead {
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        .email-masthead_logo {
+            width: 94px;
+        }
+
+        .email-masthead_name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #A8AAAF;
+            text-decoration: none;
+            text-shadow: 0 1px 0 white;
+        }
+
+        /* Body ------------------------------ */
+
+        .email-body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .email-body_inner {
+            width: 570px;
+            margin: 0 auto;
+            padding: 0;
+            -premailer-width: 570px;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            background-color: #FFFFFF;
+        }
+
+        .email-footer {
+            width: 570px;
+            margin: 0 auto;
+            padding: 0;
+            -premailer-width: 570px;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            text-align: center;
+        }
+
+        .email-footer p {
+            color: #A8AAAF;
+        }
+
+        .body-action {
+            width: 100%;
+            margin: 30px auto;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            text-align: center;
+        }
+
+        .body-sub {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #EAEAEC;
+        }
+
+        .content-cell {
+            padding: 45px;
+        }
+
+        /*Media Queries ------------------------------ */
+
+        @media only screen and (max-width: 600px) {
+
+            .email-body_inner,
+            .email-footer {
+                width: 100% !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+
+            body,
+            .email-body,
+            .email-body_inner,
+            .email-content,
+            .email-wrapper,
+            .email-masthead,
+            .email-footer {
+                background-color: #333333 !important;
+                color: #FFF !important;
+            }
+
+            p,
+            ul,
+            ol,
+            blockquote,
+            h1,
+            h2,
+            h3 {
+                color: #FFF !important;
+            }
+
+            .attributes_content,
+            .discount {
+                background-color: #222 !important;
+            }
+
+            .email-masthead_name {
+                text-shadow: none !important;
+            }
+        }
+    </style>
+    <!--[if mso]>
+    <style type="text/css">
+      .f-fallback  {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  <![endif]-->
+</head>
+
+<body>
+    <span class="preheader">Usa questo link per resettare la tua password. Il link è valido per 24 ore.</span>
+    <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+        <tr>
+            <td align="center">
+                <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                    <tr>
+                        <td class="email-masthead">
+                            <a href="https://unidata.it" class="f-fallback email-masthead_name">
+                                <img height="80" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAABQCAYAAAAZbJcyAAAAAXNSR0IArs4c6QAAAKhlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgExAAIAAAAkAAAAWodpAAQAAAABAAAAfgAAAAAAAABIAAAAAQAAAEgAAAABQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKE1hY2ludG9zaCkAAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAJGgAwAEAAAAAQAAAFAAAAAALtnaLQAAAAlwSFlzAAALEwAACxMBAJqcGAAABBdpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iCiAgICAgICAgICAgIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgICAgICAgICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIj4KICAgICAgICAgPHhtcE1NOkluc3RhbmNlSUQ+eG1wLmlpZDpDRDZCN0M4N0ZGOEIxMUU3ODY4RkQ2OERFRjg5NTc3OTwveG1wTU06SW5zdGFuY2VJRD4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDpDRDZCN0M4NUZGOEIxMUU3ODY4RkQ2OERFRjg5NTc3OTwvc3RS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" alt="">
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- Email Body -->
+                    <tr>
+                        <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+                            <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0"
+                                role="presentation">
+                                <!-- Body content -->
+                                <tr>
+                                    <td class="content-cell">
+                                        <div class="f-fallback">
+                                            <h1>Ciao {{name}},</h1>
+                                            <p>Ricevi questa mail perchè hai richiesto il reset della tua password. Usa
+                                                il pulsante qui sotto per resettarla <strong>Questa procedura è valida
+                                                    solamente per 24 ore.</strong></p>
+                                            <!-- Action -->
+                                            <table class="body-action" align="center" width="100%" cellpadding="0"
+                                                cellspacing="0" role="presentation">
+                                                <tr>
+                                                    <td align="center">
+                                                        <!-- Border based button
+           https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                                            role="presentation">
+                                                            <tr>
+                                                                <td align="center">
+                                                                    <a href="{{action_url}}"
+                                                                        class="f-fallback button button--blue"
+                                                                        target="_blank">Resetta la tua password</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p>Se non hai richiesto il reset della tua password, per favore ignora
+                                                questa email oppure contatta il supporto tecnico per ulteriori
+                                                informazioni.
+                                                <p>Grazie,
+                                                    <br>Unidata S.p.A.</p>
+                                                <!-- Sub copy -->
+                                                <table class="body-sub" role="presentation">
+                                                    <tr>
+                                                        <td>
+                                                            <p class="f-fallback sub">Se hai probalemi con il pulsante
+                                                                di reset puoi copiare ed incollare il seguente link sul
+                                                                tuo browser.</p>
+                                                            <p class="f-fallback sub">{{action_url}}</p>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0"
+                                role="presentation">
+                                <tr>
+                                    <td class="content-cell" align="center">
+                                        <p class="f-fallback sub align-center">&copy; 2019 Unidata. All rights reserved.
+                                        </p>
+                                        <p class="f-fallback sub align-center">
+                                            Unidata S.p.A.
+                                            <br>Viale A.G.Eiffel 100
+                                            <br>00148 - Roma
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

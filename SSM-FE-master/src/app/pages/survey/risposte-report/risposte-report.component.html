@@ -1,0 +1,16 @@
+<div class="user-manage-list">
+  <mat-card>
+      <ng-container *ngFor="let d of data">
+        <h2>{{d.domanda}}</h2>
+        <ng-container *ngFor="let r of d.risposte">
+          <table style="width:100%;" class="survey">
+            <tr>
+              <td style="width:50%;">{{r.risposta}}</td>
+              <td style="width:25%;" class="text-right">{{r.num}}</td>
+              <td style="width:25%;" class="text-right">{{r.perc}}</td>
+            </tr>
+          </table>
+        </ng-container>
+      </ng-container>
+  </mat-card>
+</div>

@@ -1,0 +1,135 @@
+<div id = "main-app" class="app sidebar-color-dark header-color-dark" [dir]="layout" [ngClass]="{'app-dark': dark, 'collapsed-sidebar': collapseSidebarB, 'compact-sidebar': compactSidebar, 'customizer-in': customizerIn}" [class.side-panel-opened]="sidenavOpen" [class.side-panel-closed]="!sidenavOpen">
+<mat-sidenav-container class="gene-container">
+	<mat-sidenav #sidenav [(mode)]="sidenavMode" [(opened)]="sidenavOpen" class="sidebar-area">
+		<ms-side-bar [menuList]="menuItems" [verticalMenuStatus] = true></ms-side-bar>
+	</mat-sidenav>
+	<mat-toolbar class="gene-header-toolbar">
+		<div class="gene-ham-icon" tourAnchor="start.tour" >
+			<button class="" mat-mini-fab color="primary" mat-card-icon (click)="toggleSidebar()">
+				<mat-icon>menu</mat-icon>
+			</button>
+		</div>
+		<a class="navbar-brand" [routerLink]="[headerUrl]">{{headerName}}</a>
+		<span fxFlex></span>
+		<div class="search-bar" fxFlex>
+			<form class="search-form" fxShow="false" fxShow.gt-xs tourAnchor="tour-search">
+				<mat-form-field>
+					<input (keyup)="searchService.$search.next($event.target.value)" [(ngModel)]="searchService.searchText" name="search" matInput placeholder="Ricerca">
+				</mat-form-field>
+			</form>
+		</div>
+		<div class="secondary-menu">
+			<!-- <button fxHide="true" fxHide.gt-sm="false" mat-button class="fullscreen-toggle" (click)="toggleFullscreen()" tourAnchor="tour-full-screen">
+				<mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
+				<mat-icon *ngIf="isFullscreen">fullscreen_exit</mat-icon>
+			</button> -->
+			<button class="user-button" mat-button [matMenuTriggerFor]="menu">
+				<div fxLayout="row" fxLayoutAlign="center center">
+					<mat-icon>account_circle</mat-icon>
+				</div>
+			</button>
+			<!-- <button (click)="end.toggle()" mat-icon-button class="overflow-visible">
+				<mat-icon>notifications</mat-icon>
+			</button> -->
+			<!-- <button mat-button [matMenuTriggerFor]="shopping_cart">
+				<mat-icon class="material-icons icon-color" matBadge="{{ecommerceService.cartProductLength}}" matBadgeColor="warn" >shopping_cart</mat-icon>
+			</button> -->
+			<!-- <button mat-icon-button class="overflow-visible" [matMenuTriggerFor]="appsmenu">
+				<mat-icon>apps</mat-icon>
+			</button> -->
+			<!-- <ms-language-drop-down></ms-language-drop-down> -->
+			<!-- <button mat-icon-button class="overflow-visible" (click)="chatMenu()">
+				<mat-icon>chat</mat-icon>
+			</button> -->
+		</div>
+	</mat-toolbar>
+	<div class="gene-base-container" #scrollContainer>
+		<div class="inner-container" fxLayout="row wrap">
+			<div class="full-wid" fxFlex="100">
+				<!-- TODO: -->
+				<router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+			</div>
+			<div class="footer-wrap pad-t-none full-wid" fxFLex="100">
+				<app-footer></app-footer>
+			</div>
+		</div>
+	</div>
+</mat-sidenav-container>
+<div class="gene-customizer">
+	<button class="customizer-toggle" (click)="customizerFunction()">
+		<mat-icon class="fa-spin">settings</mat-icon>
+	</button>
+	<div class="settings-panel">
+		<mat-toolbar color="primary">
+			<span fxFlex>Options</span>
+		</mat-toolbar>
+		<mat-card-content class="theme-options">
+			<h3>Layout Options</h3>
+			<mat-divider></mat-divider>
+			<div class="collapse-option">
+				<mat-checkbox (change)="collapseSidebar($event)">Collapsed Sidebar</mat-checkbox>
+			</div>
+			<div>
+				<mat-checkbox [(ngModel)]="dark" (change) = "addClassOnBody($event)">Dark Mode</mat-checkbox>
+			</div>
+			<div>
+				<mat-checkbox (change)="changeRTL($event.checked)" >RTL</mat-checkbox>
+			</div>
+			<!-- <div>
+				<mat-select placeholder="Language" class="mt-1" [(ngModel)]="currentLang" #langSelect="ngModel" (ngModelChange)="translate.use(currentLang)">
+				<mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">{{ lang }}</mat-option>
+				</mat-select>
+			</div> -->
+			<div class="inner-toolbar" fxHide fxShow.gt-md>
+				<div class="theme-color">
+					<div class="text-center mrgn-b-md">
+						<h4>Sidebar Filters</h4>
+					</div>
+					<div class="gene-list" fxLayoutAlign="center center">
+						<div *ngFor = "let filter of sideBarFilterClass; let i=index">
+							<a class="gene-list-link" (click)="sidebarFilter(filter)">
+							<span [ngClass] = "{'radius-circle': i == 0 }" id = "{{filter.sideBarSelect}}"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="theme-color">
+					<div class="text-center mrgn-b-md">
+						<h4 class="theme-light-color">Header Filters</h4>
+					</div>
+					<div class="gene-list" fxLayoutAlign="center center">
+						<div *ngFor = "let filter of headerFilterClass; let i=index">
+							<a class="gene-list-link" (click)="headerFilter(filter)">
+							<span [ngClass]="{'radius-active': i == 0 }" id="{{filter.headerSelect}}"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</mat-card-content>
+	</div>
+</div>
+</div>
+<mat-menu class="user-menu" x-position="before" y-position="below" #menu="matMenu">
+	<!-- <button mat-menu-item>
+		<mat-icon>account_circle</mat-icon>
+		<span>Profile</span>
+	</button>
+	<button mat-menu-item>
+		<mat-icon>settings</mat-icon>
+		<span>Settings</span>
+	</button>
+	<button mat-menu-item>
+		<mat-icon>help</mat-icon>
+		<span>Help</span>
+	</button> -->
+	<div mat-menu-item>
+		<mat-icon>account_circle</mat-icon>
+		<span>{{user.first_name}} {{user.last_name}}</span>
+	</div>
+	<mat-divider></mat-divider>
+	<button (click)="logOut()" mat-menu-item>
+		<mat-icon>exit_to_app</mat-icon>
+		<span>Logout</span>
+	</button>
+</mat-menu>

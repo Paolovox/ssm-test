@@ -1,0 +1,92 @@
+<div class="user-manage-list">
+    <mat-card *ngIf="dragDrop">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="add(true)">Salva</button>
+                    <button mat-raised-button mat-button-sm color="secondary" (click)="resetDrag()">Annulla</button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="drag-container">
+            <h2>Attività</h2>
+        
+            <div cdkDropList #optionsList="cdkDropList" [cdkDropListData]="selects" [cdkDropListConnectedTo]="[selectedList]"
+                class="drag-list" (cdkDropListDropped)="drop($event, true)">
+                <div class="drag-box" *ngFor="let item of selects;" cdkDrag>
+                    {{item.nome}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="drag-container">
+            <h2>Autonomia</h2>
+        
+            <div cdkDropList #selectedList="cdkDropList" [cdkDropListData]="dataCounter.data"
+                [cdkDropListConnectedTo]="[optionsList]" class="drag-list" (cdkDropListDropped)="drop($event, false)">
+                <ng-container *ngFor="let item of dataCounter.data; let i = index">
+                    <mat-form-field class="drag-box inflex w75" cdkDrag>
+                        <mat-select multiple [placeholder]="item.nome" [(ngModel)]="item.idvalue" [name]="item.id + i.toString()">
+                            <mat-option [matTooltip]="o.text" *ngFor="let o of item.options" [value]="o.id">{{o.text}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-icon (click)="selectAll(i)" class="mat-18 cursor-pointer">select_all</mat-icon>
+                    <mat-icon (click)="unselectAll(i)" class="mat-18 cursor-pointer">tab_unselected</mat-icon>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="drag-container">
+            <h2>Info</h2>
+            <div class="drag-list">
+                <mat-form-field class="drag-box">
+                    <input matInput required type="text" placeholder="Nome" [(ngModel)]="dataCounter.nome" name="nome">
+                </mat-form-field>
+                <mat-form-field class="drag-box">
+                    <input matInput required type="number" placeholder="Quantità" [(ngModel)]="dataCounter.qty" name="qty">
+                </mat-form-field>
+                <div class="pad-all-md">
+                    <mat-checkbox [(ngModel)]="dataCounter.frequenza" color="primary">Frequenza</mat-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="drag-container">
+            <h2>Autonomia</h2>
+            <div class="drag-list">
+                <div class="drag-box quantity">
+                    <mat-list role="list" class="mrgn-b-md">
+                        <mat-list-item class="border-bottom cursor-pointer" role="listitem" *ngFor="let a of dataCounter.autonomia; let i = index" (click)="rangeModal(i)">
+                            <div fxFlex="80" fxLayoutAlign="center center" fxLayoutMargin="10px">
+                                {{a.autonomia}} <mat-icon class="mat-18">arrow_right</mat-icon> <b>{{a.livello_da}} - {{a.livello_a}}</b>
+                            </div>
+                            <div fxFlex="20" fxLayoutAlign="center center">
+                                <mat-icon (click)="dataCounter.autonomia.splice(i, 1)">delete</mat-icon>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                    <button mat-button (click)="rangeModal()">Nuovo range</button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <!-- <div class="mrgn-r-sm" (click)="getData()">
+                            <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                        </div> -->
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="add()">Aggiungi autonomia</button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #contatoriTable [data]="data" [settings]="settings" (operations)="operations($event)" (update)="getData()"></og-list>
+    </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

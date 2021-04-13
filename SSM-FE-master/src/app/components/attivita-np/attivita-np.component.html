@@ -1,0 +1,37 @@
+<div class="text-center pad-y-lg mat-grey-50">
+    <h4>Registrazione di un'attività non professionalizzante</h4>
+</div>
+<mat-divider></mat-divider>
+<form ng-form fxLayout='row wrap' class="pad-t-lg pad-b-md" #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+    <mat-form-field class="pad-all-sm" fxFlex="100">
+        <mat-select (openedChange)="getInsegnamenti($event)" placeholder="Settore scientifico" required
+            [(ngModel)]="data.idpds" name="idpds" multiple>
+            <mat-option *ngFor="let s of settoriList" [value]="s.id">{{s.nome}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="insegnamentiList" class="pad-all-sm" fxFlex="100">
+        <mat-select placeholder="Insegnamento" required
+            [(ngModel)]="data.idinsegnamento" name="idinsegnamento" multiple>
+            <mat-option *ngFor="let i of insegnamentiList" [value]="i.id">{{i.nome}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="insegnamentiList" class="pad-all-sm" fxFlex="100">
+        <mat-select placeholder="Attività" required (selectionChange)="getAttivitaData($event.value)"
+            [(ngModel)]="data.idattivita" name="idattivita">
+            <mat-option *ngFor="let a of attivitaList" [value]="a.id">{{a.nome_attivita}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <ng-container *ngFor="let d of attivitaDati">
+        <mat-form-field *ngIf="d.idtipo_campo === 1" class="pad-all-sm" fxFlex="100">
+            <input matInput required [placeholder]="d.nome_campo" type="text" [(ngModel)]="data.dati_aggiuntivi[d.nome_campo]" [name]="d.id">
+        </mat-form-field>
+        <og-upload *ngIf="d.idtipo_campo === 2" fxFlex="100%" #OGUpload class="uploadAssets pad-all-sm" [imgs]="upload.images"
+            [additionalParameter]="upload.additionalParameter" [clearAfterUpload]="false" [autoAddImages]="false"
+            [uploadUrl]="upload.uploadUrl" [cropUrl]="''" [deleteUrl]="upload.deleteUrl" [cropImage]="false" [folder]="true">
+        </og-upload>
+    </ng-container>
+    <div fxFlex="100">
+        <button mat-button [routerLink]="['/attivita-list']" type="button" color="secondary">Annulla</button>
+        <button class="mrgn-l-md" mat-button type="submit" [disabled]="!form.valid">Salva</button>
+    </div>
+</form>

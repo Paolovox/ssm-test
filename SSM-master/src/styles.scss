@@ -1,0 +1,42 @@
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.sidenav-scrollbar-container {
+  padding-top: 2rem;
+}
+
+.alert-bg   {
+    background-color: #f44336;
+}
+
+.mat-icon-blue  {
+    color: #1565c0;
+}
+
+.fullWidth  {
+    width: 100%;
+}
+
+.mat-autocomplete-panel mat-option.mat-option {
+  height: unset;
+}
+
+
+// .mat-select-panel {
+//   max-width: 90% !important;
+// }
+// .mat-select-panel mat-option.mat-option {
+//   height: unset;
+// }
+
+// mat-option {
+//   height: 55px !important;
+// }
+// .mat-option-text.mat-option-text {
+//   overflow: auto;
+//   text-overflow: unset;
+// }
+
+.modal-body {
+	min-width: calc(100vw - 250px) !important;
+}

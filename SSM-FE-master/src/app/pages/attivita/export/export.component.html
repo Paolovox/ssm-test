@@ -1,0 +1,20 @@
+<div class="user-manage-list">
+    <div fxLayout="row" *ngIf="idSpecializzando">
+        <mat-toolbar style="background-color: #fff;">
+            <mat-icon routerLink="/specializzandi-list" class="cursor-pointer">arrow_back</mat-icon>
+            <span class="spacer"></span>
+            <span>{{nomeSpecializzando}}</span>
+        </mat-toolbar>
+    </div>
+    <div fxLayout="row wrap">
+        <mat-card fxFlex="30" *ngFor="let c of contatori">
+            <h4>
+                {{c.nome}} <h5>{{c.frequenza == 1 ? '(Frequenza)' : ''}}</h5>
+            </h4>
+            <p>{{'EXPORT.REGISTRATE' | translate}}: {{c.quantita_registrazioni && c.quantita_registrazioni.registrate ? c.quantita_registrazioni.registrate : 0}}</p>
+            <p>{{'EXPORT.CONVALIDATE' | translate}}: {{c.quantita_registrazioni && c.quantita_registrazioni.convalidate ? c.quantita_registrazioni.convalidate : 0}}</p>
+            <p>{{'EXPORT.TOTALI' | translate}}: {{c.quantita_totale}}</p>
+            <mat-progress-bar mode="buffer" [value]="c.percentuale_completamento_num" color="primary"></mat-progress-bar> {{c.percentuale_completamento}}
+        </mat-card>
+    </div>
+</div>

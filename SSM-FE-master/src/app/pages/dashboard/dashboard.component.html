@@ -1,0 +1,64 @@
+<ng-container *ngIf="data">
+    <div *ngIf="isAteneo()" fxLayout="row wrap" fxLayoutGap="20px">
+        <mat-card>
+            <h2>{{'DASHBOARD.SELEZIONA_SCUOLA' | translate}}</h2>
+            <mat-form-field style="width: 600px;">
+                <mat-select placeholder="Scuola" (selectionChange)="getData(); getDataGraph()" [(ngModel)]="idScuolaFilter" name="idScuolaFilter">
+                    <mat-option *ngFor="let s of data.scuole" [value]="s.id">{{s.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-card>
+    </div>
+    <ng-container *ngIf="!isAteneo() || idScuolaFilter">
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-card fxFlex="50%" class="pad-all-md mh380">
+                <h2>{{'DASHBOARD.REG_GIORNALIERE' | translate}}</h2>
+                <app-bar-chart *ngIf="numRegLabel" #barChart class="pad-all-md" [label]="numRegLabel" [data]="numRegData" [color]="barColors"></app-bar-chart>
+            </mat-card>
+            <mat-card fxFlex="50%" class="pad-all-md mh380">
+                <h2>{{'DASHBOARD.REG_GIORNALIERE' | translate}}</h2>
+                <app-pie-chart *ngIf="numRegPieData" class="pad-all-md" [labels]="numRegPieLabel" [data]="numRegPieData" [colors]="pieColors"></app-pie-chart>
+            </mat-card>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-card class="mh190" fxFlex="33%">
+                <h3>{{'DASHBOARD.TUTOR' | translate}}</h3>
+                <p>{{'DASHBOARD.TOTALE' | translate}}: {{data.tutor_count}}</p>
+                <p>
+                    {{'DASHBOARD.SENZA_VALIDAZIONE' | translate}}: {{data.tutor_no_val}}
+                    <button mat-button (click)="getTutorNo()">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </button>
+                </p>
+                <ng-container *ngIf="tutorNo">
+                    <p style="font-size: 14px" *ngFor="let t of tutorNoValutazioni">
+                        {{t.nome}}
+                        <br>
+                        {{t.codice_fiscale}}
+                    </p>
+                </ng-container>
+            </mat-card>
+            <mat-card class="mh190" fxFlex="33%">
+                <h4>{{'DASHBOARD.SPECIALIZZANDI' | translate}}</h4>
+                <p>{{'DASHBOARD.TOTALE' | translate}}: {{data.specializzandi_count}}</p>
+                <p>
+                    {{'DASHBOARD.SENZA_REGISTRAZIONI' | translate}}: {{data.specializzandi_no_reg}}
+                    <button mat-button (click)="getSpecializzandiNo()">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </button>
+                </p>
+                <ng-container dense *ngIf="specializzandiNo">
+                    <p style="font-size: 14px" *ngFor="let s of specializzandiNoRegistrazioni">
+                        {{s.nome}}
+                        <br>
+                        {{s.matricola}}
+                    </p>
+                </ng-container>
+            </mat-card>
+            <mat-card class="mh190" fxFlex="33%">
+                <h4>{{'DASHBOARD.DIRETTORI' | translate}}</h4>
+                <p>{{'DASHBOARD.TOTALE' | translate}}: {{data.direttori_count}}</p>
+            </mat-card>
+        </div>
+    </ng-container>
+</ng-container>

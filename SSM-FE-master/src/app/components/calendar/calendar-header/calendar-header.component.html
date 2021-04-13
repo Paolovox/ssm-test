@@ -1,0 +1,20 @@
+<div class="text-center w50 d-inline-block">
+   <button type="button" mat-button mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view"
+      (viewDateChange)="viewDateChange.next(viewDate)">
+      <mat-icon class="mat-18">arrow_back</mat-icon>
+   </button>
+   <button type="button" mat-button mwlCalendarToday [(viewDate)]="viewDate"
+      (viewDateChange)="viewDateChange.next(viewDate)">Oggi</button>
+   <button type="button" mat-button mwlCalendarNextView [(viewDate)]="viewDate" [view]="view"
+      (viewDateChange)="viewDateChange.next(viewDate)">
+      <mat-icon class="mat-18">arrow_forward</mat-icon>
+   </button>
+</div>
+<div class="w50 d-inline-block">
+   <h3 class="text-center">{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+</div>
+<!-- <div fxFlex="33%" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+   <button mat-button (click)="viewChange.emit('month')" [class.active]="view === 'month'">Mese</button>
+   <button mat-button (click)="viewChange.emit('week')" [class.active]="view === 'week'">Settimana</button>
+   <button mat-button (click)="viewChange.emit('day')" [class.active]="view === 'day'">Giorno</button>
+</div> -->

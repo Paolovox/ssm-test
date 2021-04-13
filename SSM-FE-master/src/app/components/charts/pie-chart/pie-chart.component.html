@@ -1,0 +1,9 @@
+<div style="display: block;" *ngIf="showChart">
+   <canvas baseChart
+      [data]="data"
+      [labels]="labels"
+      [options]="pieChartOptions"
+      [colors]="colors"
+      chartType="pie">   
+    </canvas>
+</div>

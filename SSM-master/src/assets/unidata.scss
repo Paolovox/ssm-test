@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$mat-unidata: (
+    50 : #effafc,
+    100 : #d6f3f6,
+    200 : #bbebf1,
+    300 : #9fe2eb,
+    400 : #8bdce6,
+    500 : #76d6e2,
+    600 : #6ed1df,
+    700 : #63ccda,
+    800 : #59c6d6,
+    900 : #46bccf,
+    A100 : #ffffff,
+    A200 : #f1fdff,
+    A400 : #bef6ff,
+    A700 : #a5f2ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$unidata-app-primary: mat-palette($mat-unidata);
+$unidata-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$unidata-app-warn:    mat-palette($mat-red);
+
+$unidata-app-theme: mat-light-theme($unidata-app-primary, $unidata-app-accent, $unidata-app-warn);
+
+@include angular-material-theme($unidata-app-theme);

@@ -1,0 +1,53 @@
+<div fxLayout="row">
+    <!-- <mat-card fxFlex="50%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="mrgn-r-sm" (click)="getData()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #ateneiAssociazioneTable [data]="data" [settings]="settings" (operations)="operations($event)"
+            (update)="getData()"></og-list>
+    </mat-card> -->
+    <mat-card fxFlex="100%">
+        <div fxLayout="row wrap" fxLayoutAlign="center center">
+            <div fxLayout="row">
+                Lista atenei
+            </div>
+            <div fxLayout="row">
+                <div class="mrgn-l-sm" (click)="saveAziende()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">save</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex="50%" fxLayoutAlign="center center">
+                Esterni
+            </div>
+            <div fxFlex="50%" fxLayoutAlign="center center">
+                Interni
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mrgn-t-lg" fxLayout="row" *ngFor="let a of aziendeAll">
+            <div fxFlex="50%">
+                {{a.azienda_out}}
+            </div>
+            <div fxFlex="50%">
+                <mat-form-field class="fullWidth">
+                    <mat-select placeholder="Azienda" [(ngModel)]="a.idazienda" name="idazienda">
+                        <mat-option *ngFor="let a of aziende" [value]="a.id">{{a.text}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-paginator [length]="totalElement"
+            [pageSize]="15"
+            [pageSizeOptions]="[15]"
+            (page)="getAziende($event)">
+        </mat-paginator>
+    </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

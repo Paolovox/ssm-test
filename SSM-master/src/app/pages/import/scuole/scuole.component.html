@@ -1,0 +1,49 @@
+<div fxLayout="row">
+    <mat-card fxFlex="100%">
+        <div fxLayout="row wrap" fxLayoutAlign="center center">
+            <div fxLayout="row">
+                Lista scuole
+            </div>
+            <div fxLayout="row">
+                <div class="mrgn-l-sm" (click)="saveScuole()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">save</mat-icon>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex="100%" fxLayoutAlign="center center">
+                <mat-select placeholder="Ateneo" (selectionChange)="getScuole()" [(ngModel)]="idAteneo" name="idAteneo">
+                    <mat-option *ngFor="let a of atenei" [value]="a.id">
+                        {{a.text}}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxFlex="50%" fxLayoutAlign="center center">
+                Esterne
+            </div>
+            <div fxFlex="50%" fxLayoutAlign="center center">
+                Interne
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mrgn-t-lg" fxLayout="row" *ngFor="let s of scuoleAll">
+            <div fxFlex="50%">
+                {{s.scuola_out}}
+            </div>
+            <div fxFlex="50%">
+                <mat-form-field class="fullWidth">
+                    <mat-select placeholder="Scuola" [(ngModel)]="s.idscuola" name="idscuola">
+                        <mat-option *ngFor="let s of scuole" [value]="s.id">{{s.text}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-paginator [length]="totalElement"
+            [pageSize]="15"
+            [pageSizeOptions]="[15]"
+            (page)="getScuole($event)">
+        </mat-paginator>
+    </mat-card>
+</div>

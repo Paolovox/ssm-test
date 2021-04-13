@@ -1,0 +1,57 @@
+<div fxLayout="row">
+    <!-- <mat-card fxFlex="50%">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="mrgn-r-sm" (click)="getData()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #presidiAssociazioneTable [data]="data" [settings]="settings" (operations)="operations($event)"
+            (update)="getData()"></og-list>
+    </mat-card> -->
+    <mat-card fxFlex="100%">
+        <div fxLayout="row wrap" fxLayoutAlign="center center">
+            <div fxLayout="row">
+                Lista presidi
+            </div>
+            <div fxLayout="row">
+                <div class="mrgn-l-sm" (click)="savePresidi()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">save</mat-icon>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-form-field class="mrgn-t-lg mrgn-b-lg">
+            <mat-select placeholder="Azienda" (selectionChange)="getPresidi($event.value)" [(ngModel)]="idAzienda" name="idAzienda">
+                <mat-option *ngFor="let a of aziende" [value]="a">{{a.text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="mrgn-l-sm" *ngIf="idAzienda">
+            <mat-select placeholder="Presidio" (selectionChange)="getUnita($event.value)" [(ngModel)]="idPresidio" name="idPresidio">
+                <mat-option *ngFor="let p of presidi" [value]="p">{{p.text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <ng-container *ngIf="idPresidio">
+            <div fxLayout="row" *ngFor="let u of unitaAll">
+                <div fxFlex="50%">
+                    {{u.unita_out}}
+                </div>
+                <div fxFlex="50%">
+                    <mat-form-field class="fullWidth">
+                        <mat-select placeholder="Unità" [(ngModel)]="u.idunita" name="idunita">
+                        <mat-option *ngFor="let u of unita" [value]="u.id">{{u.text}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-paginator #paginator [length]="totalElement"
+                [pageSize]="15"
+                [pageSizeOptions]="[15]"
+                (page)="getUnita(false, $event)">
+            </mat-paginator>
+        </ng-container>
+    </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

@@ -1,0 +1,37 @@
+<div *ngIf="showModal" class="modal" [@fade]="'in'">
+    <div class="modal-body">
+        <div class="modal-header">
+            <h3>{{title}}</h3>
+            <p>{{subTitle}}</p>
+        </div>
+        <div class="modal-scrollable">
+            <mat-form-field class="fullWidth">
+                <input matInput placeholder="Aggiungi elemento..." [(ngModel)]="newElement" (keyup)="addEvent($event)">
+            </mat-form-field>
+            <mat-list>
+                <mat-list-item *ngFor="let item of listItems; let i = index">
+                    <h3 *ngIf="!item.edit" matLine> {{item.nome}} </h3>
+                    <mat-form-field matLine *ngIf="item.edit">
+                        <input matInput [(ngModel)]="item.nome">
+                    </mat-form-field>
+                    <p matLine>
+                        <span> {{item.helpName}} </span>
+                    </p>
+                    <button *ngIf="!item.edit" mat-icon-button aria-label="Modifica" (click)="item.edit = true">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                    <button *ngIf="item.edit" mat-icon-button aria-label="Salva" (click)="item.edit = false; editEvent(item)">
+                        <mat-icon>check</mat-icon>
+                    </button>
+                    <button mat-icon-button aria-label="Elimina" (click)="deleteEvent(item)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div class="modal-actions">
+            <button mat-button type="button" (click)="close()">Chiudi</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="showModal" class="modal-bg"></div>

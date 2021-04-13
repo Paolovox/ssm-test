@@ -1,0 +1,52 @@
+<div class="user-manage-list">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="mrgn-r-sm" (click)="getData()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                </div>
+                <div class="mrgn-r-sm">
+                    <span> <b>{{'LIST_ATTIVITA_NP.ATTIVITA_CONFERMATE' | translate}}:</b> {{oreValutate}}</span>
+                </div>
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button *ngIf="isSpec()" mat-raised-button mat-button-sm color="primary" (click)="add()">{{'LIST_ATTIVITA_NP.AGGIUNGI' | translate}}<mat-icon
+                            class="mrgn-l-md gene-text-xl">add</mat-icon></button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="end end">
+            <button fxFlex.xs="100" fxFlex="20" class="mrgn-b-md" *ngIf="!isSpec()" mat-raised-button mat-button-sm
+                color="secondary" (click)="confirmAll()">{{'LIST_ATTIVITA_NP.CONFERMA_TUTTE' | translate}}<mat-icon class="mrgn-l-md gene-text-xl">check</mat-icon>
+                </button>
+        </div>
+        <div fxLayout="row wrap" fxLayoutGap="20px">
+            <mat-form-field>
+                <mat-select [placeholder]="'LIST_ATTIVITA_NP.STATO' | translate" (selectionChange)="getData()" [(ngModel)]="idstato" name="idstato">
+                    <mat-option value="">Tutti</mat-option>
+                    <mat-option *ngFor="let s of statusList" [value]="s.id">{{s.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" (dateChange)="getData()" [placeholder]="'LIST_ATTIVITA_NP.DATA' | translate" [(ngModel)]="dataAttivita">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field style="width: 500px;">
+                <mat-select [placeholder]="'LIST_ATTIVITA_NP.ATTIVITA' | translate" (selectionChange)="getData()" [(ngModel)]="idattivita" name="idattivita">
+                    <mat-option value="">Tutti</mat-option>
+                    <mat-option *ngFor="let a of attivitaList" [value]="a.id">{{a.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div style="align-items: center; display: flex;">
+                <button mat-icon-button (click)="resetFilter()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #registrazioniNpTable [data]="data" [settings]="settings" (operations)="operations($event)"
+            (update)="getData()"></og-list>
+    </mat-card>
+</div>

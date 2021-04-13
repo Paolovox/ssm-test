@@ -1,0 +1,7 @@
+{
+    "require": {
+        "ottimis/phplibs": "^1.7",
+        "tecnick.com/tcpdf": "^6.3",
+        "phpmailer/phpmailer": "^6.1"
+    }
+}

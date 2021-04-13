@@ -1,0 +1,88 @@
+<div class="table-responsive">
+    <!-- <table #table class="full-wid" mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" [attr.cdkDropList]="settingsData.actionColumns?.drag !== false ? '' : false" [attr.cdkDropListData]="settingsData.actionColumns?.drag !== false ? dataSource : false" (cdkDropListDropped)="dropTable($event)"> -->
+    <table #table class="full-wid dropList" mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" cdkDropList (cdkDropListDropped)="dropTable($event)">
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="settingsData.selection.hasValue() && isAllSelected()"
+                    [indeterminate]="settingsData.selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? settingsData.selection.toggle(row.id) : null"
+                    [checked]="settingsData.selection.isSelected(row.id)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container *ngFor="let c of settingsData.columns">
+            <ng-container *ngIf="c.style === 1" [matColumnDef]="c.column">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{c.name}}</th>
+                <td mat-cell *matCellDef="let element">
+                    <div fxLayoutAlign="start center">
+                        <div>
+                            <h5 class="mrgn-b-none">{{element[c.column]}}</h5>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container *ngIf="c.style === 2" [matColumnDef]="c.column">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{c.name}}</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="make-ellipse">{{element[c.column]}}</div>
+                </td>
+            </ng-container>
+
+            <ng-container *ngIf="c.style === 3" [matColumnDef]="c.column">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{c.name}}</th>
+                <td mat-cell *matCellDef="let element" (click)="operationPressed(c.eventType, element)">
+                    <div fxLayoutAlign="start center">
+                        <div>
+                            <h5 class="mrgn-b-none">{{element[c.column]}}</h5>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Operazioni</th>
+            <td mat-cell *matCellDef="let element;let i = index;">
+                <button *ngIf="settingsData.actionColumns?.edit !== false" matTooltip="Modifica" (click)="operationPressed('edit', element)" mat-icon-button>
+                    <mat-icon class="mat-icon-grey gene-text-lg">edit</mat-icon>
+                </button>
+                <ng-container *ngIf="settingsData.customActions">
+                    <button *ngFor="let a of settingsData.customActions" [matTooltip]="a.name" (click)="operationPressed(a.type, element)"
+                        mat-icon-button>
+                        <mat-icon class="mat-icon-grey gene-text-lg">{{a.icon}}</mat-icon>
+                    </button>
+                </ng-container>
+                <button *ngIf="settingsData.actionColumns?.delete !== false" matTooltip="Elimina" (click)="operationPressed('delete', element)" mat-icon-button>
+                    <mat-icon class="mat-icon-grey gene-text-lg">delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order">
+            <th mat-header-cell *matHeaderCellDef> Ordine </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon cdkDragHandle>reorder</mat-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <ng-container *ngIf="settingsData.actionColumns?.drag; else noDrag">
+            <tr class="dropItem" mat-row *matRowDef="let row; columns: displayedColumns" cdkDrag [cdkDragData]="row"></tr>
+        </ng-container>
+        <ng-template #noDrag>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </ng-template>
+    </table>
+</div>
+<div class="pagination">
+    <mat-paginator #paginator [length]="settingsData.pagingData.total" (page)="paging($event)" [pageSize]="settingsData.pagingData.pageSize"
+        [pageSizeOptions]="[10, 20, 25, 100]" showFirstLastButtons="{{true}}">
+    </mat-paginator>
+</div>

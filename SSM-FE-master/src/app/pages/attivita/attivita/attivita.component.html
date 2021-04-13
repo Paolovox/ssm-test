@@ -1,0 +1,130 @@
+<div class="courses-payment">
+    <div fxLayout="row wrap" fxLayoutAlign="center center" class="height-full">
+        <div fxFlex.gt-sm="75" fxFlex.gt-xs="75" fxFlex="100">
+            <div class="bg-white shop-by-category section-gap pad-y-lg">
+                <div class="payment-option">
+                    <div class="mat-ex-wrapper">
+                        <mat-card>
+                            <div class="gene-card-header">
+                                <h4>{{'ATTIVITA.TITOLO' | translate}}</h4>
+                            </div>
+                            <form ng-form fxLayout='row wrap' class="pad-t-lg pad-b-md" #form="ngForm" (ngSubmit)="onSubmit()">
+                                <mat-form-field *ngIf="isSpec()" class="pad-all-sm" fxFlex="100">
+                                    <mat-select (selectionChange)="getTutor($event.value)" [placeholder]="'ATTIVITA.UNITA_OPERATIVA' | translate" required
+                                        [(ngModel)]="data.idunita" name="idunita">
+                                        <mat-option *ngFor="let u of unitaList" [value]="u.id">{{u.text}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field *ngIf="!isSpec()" class="pad-all-sm" fxFlex="100">
+                                    <input matInput readonly [placeholder]="'ATTIVITA.UNITA_OPERATIVA' | translate" type="text" [(ngModel)]="data.nome_unita"
+                                        name="nome_unita">
+                                </mat-form-field>
+                                <mat-form-field *ngIf="data.idunita && data.direttore" class="pad-all-sm" fxFlex="100">
+                                    <input matInput readonly [placeholder]="'ATTIVITA.DIRETTORE_UNITA_OPERATIVA' | translate" type="text" [(ngModel)]="data.direttore"
+                                        name="direttore">
+                                </mat-form-field>
+                                <mat-form-field *ngIf="tutorList.length > 0 && isSpec()" class="pad-all-sm" fxFlex="100">
+                                    <mat-select (selectionChange)="getAttivita()" [placeholder]="'ATTIVITA.TUTOR' | translate" required [(ngModel)]="data.idtutor"
+                                        name="idtutor">
+                                        <mat-option *ngFor="let t of tutorList" [value]="t.id">{{t.text}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field *ngIf="!isSpec()" class="pad-all-sm" fxFlex="100">
+                                    <input matInput readonly [placeholder]="'ATTIVITA.TUTOR' | translate" type="text" [(ngModel)]="data.nome_tutor" name="nome_tutor">
+                                </mat-form-field>
+                                <mat-form-field *ngIf="!isSpec()" class="pad-all-sm" fxFlex="100">
+                                    <input matInput readonly [placeholder]="'ATTIVITA.ATTIVITA' | translate" type="text" [(ngModel)]="data.nome_attivita" name="nome_attivita">
+                                </mat-form-field>
+                                <mat-form-field *ngIf="attivitaList.length > 0 && isSpec()" class="pad-all-sm" fxFlex="100">
+                                    <mat-select [disabled]="!isSpec()" (selectionChange)="getPrestazioni($event.value)" [placeholder]="'ATTIVITA.ATTIVITA' | translate" required
+                                        [(ngModel)]="data.idattivita" name="idattivita">
+                                        <mat-option *ngFor="let a of attivitaList" [value]="a.id">{{a.text}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field *ngIf="prestazioniList && prestazioniList.length > 0" class="pad-all-sm" fxFlex="100">
+                                    <mat-select [disabled]="!isSpec()" (selectionChange)="getCombos($event.value)" [placeholder]="'ATTIVITA.PRESTAZIONE' | translate" required
+                                        [(ngModel)]="data.idprestazione" name="idprestazione">
+                                        <mat-option *ngFor="let p of prestazioniList" [value]="p.id">{{p.text}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <ng-container *ngIf="data.struttura !== undefined && data.struttura != true && data.idprestazione">
+                                    <mat-form-field class="pad-all-sm" fxFlex="100" *ngFor="let item of data.struttura; let i = index">
+                                        <mat-select [disabled]="!isSpec()" (selectionChange)="comboSelected()" [placeholder]="item.nome" [(ngModel)]="item.idvalue"
+                                            [name]="item.id + i.toString()">
+                                            <mat-option *ngFor="let o of item.options" [value]="o.ci_id">{{o.ci_nome}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                                <mat-form-field *ngIf="!isSpec() && data.idtipo_registrazione != 2" class="pad-all-sm" fxFlex="100">
+                                    <input matInput readonly [placeholder]="'ATTIVITA.AUTONOMIA' | translate" type="text" [(ngModel)]="data.autonomia" name="autonomia">
+                                </mat-form-field>
+                                <mat-form-field *ngIf="comboSelectedAll && !noAutonomia && autonomiaList.length > 0 && isSpec()" class="pad-all-sm" fxFlex="100">
+                                    <mat-select [disabled]="!isSpec()" [placeholder]="'ATTIVITA.AUTONOMIA' | translate" required [(ngModel)]="data.idautonomia" name="idautonomia">
+                                        <mat-option *ngFor="let a of autonomiaList" [value]="a.id">{{a.text}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="pad-all-sm" fxFlex="50" *ngIf="idAttivita !== '0' && additionalFields.idtipo_registrazione !== '2'">
+                                    <input [readonly]="!isSpec()" matInput required [placeholder]="'ATTIVITA.QUANTITA' | translate" type="number" [(ngModel)]="data.quantita" name="quantita">
+                                </mat-form-field>
+                                <mat-form-field class="pad-all-sm" fxFlex="50" *ngIf="idAttivita !== '0'">
+                                    <input [disabled]="!isSpec()" matInput [matDatepicker]="picker" [placeholder]="'ATTIVITA.DATA' | translate" [(ngModel)]="data.data_registrazione"
+                                        name="data_registrazione">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field class="pad-all-sm" fxFlex="50" *ngIf="additionalFields.opzione_protocollo === '1'">
+                                    <input [readonly]="!isSpec()" matInput [placeholder]="'ATTIVITA.CODICE_PROGRESSIVO' | translate" type="text" [(ngModel)]="data.protocollo" name="protocollo">
+                                </mat-form-field>
+                                <mat-form-field class="pad-all-sm" fxFlex="50" *ngIf="additionalFields.opzione_note === '1'">
+                                    <textarea [readonly]="!isSpec()" matInput [placeholder]="'ATTIVITA.NOTE_AGGIUNTIVE' | translate" type="text" [(ngModel)]="data.note" name="note"></textarea>
+                                </mat-form-field>
+                                <og-upload *ngIf="isSpec()" fxFlex="100" [hidden]="additionalFields.opzione_upload !== '1'" fxFlex="100%" #OGUpload class="uploadAssets pad-all-sm"
+                                    [imgs]="upload.images"
+                                    [clearAfterUpload]="true"
+                                    [autoAddImages]="false"
+                                    [uploadUrl]="upload.uploadUrl"
+                                    [cropUrl]="''"
+                                    [deleteUrl]="upload.deleteUrl"
+                                    [cropImage]="false"
+                                    [folder]="false">
+                                </og-upload>
+                                <div class="pad-all-md" *ngIf="additionalFields.opzione_upload === '1'">
+                                    <div *ngFor="let a of data.attach; let i = index">
+                                        <a [href]="url + '/download/' + a.id + '/' + main.getToken()" target="_blank">{{a.attach_name}}</a>
+                                        <button *ngIf="isSpec()" mat-icon-button type="button" (click)="deleteAttach(i)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div fxLayout="row wrap" fxLayoutAlign="center center" class="full-wid">
+                                    <div class="pad-all-sm" fxFlex="50" *ngIf="data.struttura && idAttivita === '0'">
+                                        <og-calendar [(selectedDaysAr)]="data.selectedDays"></og-calendar>
+                                        <mat-list class="mrgn-t-xl">
+                                            <mat-list-item class="dateList text-center" *ngFor="let day of data.selectedDays; let i = index">
+                                                <div fxLayout="column" fxLayoutGap="32px">
+                                                    {{day.human_date}}
+                                                </div>
+                                                <div *ngIf="additionalFields.idtipo_registrazione !== '2'" style="margin-left: auto" fxLayout="column" fxLayoutGap="32px">
+                                                    <mat-form-field>
+                                                        <input type="number" matInput required [placeholder]="'ATTIVITA.QUANTITA' | translate" [(ngModel)]="day.badgeTotal"
+                                                            [name]="'day_' + i">
+                                                    </mat-form-field>
+                                                </div>
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </div>
+                                </div>
+                                <div fxFlex="100">
+                                    <button *ngIf="isSpec()" mat-button [routerLink]="['/attivita-list']" type="button" color="secondary">{{'ATTIVITA.ANNULLA' | translate}}</button>
+                                    <button *ngIf="!isSpec()" mat-button [routerLink]="['/attivita-list']" [queryParams]="{idSpecializzando: idSpecializzando}" type="button" color="secondary">{{'ATTIVITA.INDIETRO' | translate}}</button>
+                                    <button *ngIf="isSpec()" class="mrgn-l-md" mat-button type="submit" [disabled]="!form.valid">{{'ATTIVITA.SALVA' | translate}}</button>
+                                </div>
+                            </form>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

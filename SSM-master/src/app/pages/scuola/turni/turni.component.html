@@ -1,0 +1,20 @@
+<div class="user-manage-list">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="mrgn-r-sm" (click)="getData()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                </div>
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="add()">Aggiungi turno<mat-icon
+                            class="mrgn-l-md gene-text-xl">home</mat-icon></button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #turniTable [data]="data" [settings]="settings" (operations)="operations($event)" (update)="getData()"></og-list>
+    </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>

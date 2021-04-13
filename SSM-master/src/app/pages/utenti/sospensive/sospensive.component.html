@@ -1,0 +1,34 @@
+<div class="user-manage-list">
+    <mat-card>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="mrgn-r-sm" (click)="getData()">
+                    <mat-icon class="mat-icon-grey cursor-pointer">loop</mat-icon>
+                </div>
+                <!-- <div class="mrgn-l-sm mrgn-r-sm">
+                    <mat-form-field style="min-width: 300px;">
+                        <mat-select [(ngModel)]="idOperation" placeholder="Scegli operazione">
+                            <mat-option [value]="1">Assegna valore contabile</mat-option>
+                            <mat-option [value]="3">Cambio denominazione</mat-option>
+                            <mat-option [value]="4">Cambio CDC</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="mrgn-r-sm" (click)="execOp()">
+                    <mat-icon
+                        [ngClass]="{'mat-icon-grey': !idOperation || !selection.hasValue(), 'cursor-pointer mat-icon-blue': idOperation && selection.hasValue()}">
+                        play_circle_filled</mat-icon>
+                </div> -->
+            </div>
+            <div class="mrgn-l-md mrgn-b-md add-user-btn" fxLayoutAlign="start center">
+                <mat-card-actions class="mat-pad-none margin-none">
+                    <button mat-raised-button mat-button-sm color="primary" (click)="add()">Aggiungi sospensiva<mat-icon
+                            class="mrgn-l-md gene-text-xl">person</mat-icon></button>
+                </mat-card-actions>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <og-list #userTable [data]="data" [settings]="settings" (operations)="operations($event)" (update)="getData()"></og-list>
+    </mat-card>
+</div>
+<og-modal #OGModal [dialogFields]="dialogFields" [selectOptions]="selectOptions"></og-modal>
