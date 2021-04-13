@@ -1,0 +1,79 @@
+version: '3'
+
+services:
+  #SSM API
+  ssm-api:
+    build:
+      context: /var/www/SSM/SSM-BE-master/
+      dockerfile: /var/www/SSM/SSM-BE-master/Dockerfile
+    ports:
+      - "8000:80"
+#    volumes:
+#      - /var/docker/volumes/ssm-api:/var/www/html"
+    environment:
+      SERVICE_NAME: ssm-api
+      SERVICE_TAGS: dev
+      DEBUG: 1
+    working_dir: /var/www/html
+    env_file:
+      - /var/www/SSM/SSM-BE-master/.env
+
+  #SSM FE
+  ssm-fe:
+    build:
+      context: /var/www/SSM/SSM-FE-master/
+      dockerfile: /var/www/SSM/SSM-FE-master/Dockerfile
+    ports:
+      - "8001:80"
+ #   volumes:
+    #  - /var/docker/volumes/ssm-fe:/var/www/html"
+    environment:
+      SERVICE_NAME: ssm-fe
+      SERVICE_TAGS: dev
+      DEBUG: 1
+    working_dir: /var/www/html
+
+  #SSM BE
+  ssm-be:
+    build:
+      context: /var/www/SSM/SSM-master/
+      dockerfile: /var/www/SSM/SSM-master/Dockerfile
+    ports:
+      - "8002:80"
+  #  volumes:
+  #    - /var/docker/volumes/ssm-be:/var/www/html"
+    environment:
+      SERVICE_NAME: ssm-be
+      SERVICE_TAGS: dev
+      DEBUG: 1
+    working_dir: /var/www/html
+
+  #MYSQL
+  db:
+    image: mysql:8.0.17
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: SyrusMamma10
+      MYSQL_DATABASE: ssm
+      MYSQL_USER: ssm
+      MYSQL_PASSWORD: SyrusMamma10
+    ports:
+      - "3008:3006"
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+      - UPLOAD_LIMIT=9999M
+
+#VOLUMES
+volumes:
+  mysqldata:
+    driver: local
+
